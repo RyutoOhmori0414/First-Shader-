@@ -2,6 +2,7 @@ Shader "Unlit/test"
 {
     Properties
     {
+        _MainTex("Texture", 2D) = "white" {}
         _Color("Color Property", Color) = (1, 0, 0, 1)
         _Alpha("Color Alpha", Range(1, 0)) = 1
     }
@@ -47,10 +48,10 @@ Shader "Unlit/test"
                 return o;
             }
 
-            fixed4 frag (v2f i) : SV_Target
+            fixed4 frag(v2f i) : SV_Target
             {
                 // sample the texture
-                fixed4 col = _Color;
+                fixed4 col = tex2D(_MainTex, i.uv);
                 col.a = _Alpha;
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);
